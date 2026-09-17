@@ -37,32 +37,31 @@ def move_doodle():
 
     # TODO : Gérez les déplacements gauche/droite et mettez à jour
     # simultanément la direction et l'image du Doodle.
-    """- la position `x` doit être modifiée de `DOODLE_SPEED` pixels ;
-- lorsque le Doodle se déplace vers la gauche :
-  - `direction` doit devenir `"left"` ;
-  - `image` doit devenir `doodle_left_img` ;
-- lorsqu'il se déplace vers la droite :
-  - `direction` doit devenir `"right"` ;
-  - `image` doit devenir `doodle_right_img`."""
-    if keys == "K_LEFT" :
+
+    if keys[pygame.K_LEFT] or keys[pygame.K_a] :
+        doodle_dict["x"] -= DOODLE_SPEED
         doodle_dict.update({
             "direction": "left",
             "image": doodle_left_img
         })
-    if keys == "K-Right" :
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d] :
+        doodle_dict["x"] += DOODLE_SPEED
         doodle_dict.update({
             "direction": "right",
             "image" : doodle_right_img
         })
 
 
-
-
     # TODO : Implémentez le Screen Wrap pour qu'une partie du Doodle puisse
     # sortir d'un côté avant de réapparaître de l'autre.
     # N'utilisez pas de dimensions numériques écrites directement.
-
-
+    # SCREEN_WIDTH = 576
+    # SCREEN_HEIGHT = 800  --> info sur la taille de la fenêtre
+    
+    if doodle_dict["x"] < -DOODLE_WIDTH :
+        doodle_dict["x"] = SCREEN_WIDTH  #on le teleporte a droite
+    elif doodle_dict["x"] > SCREEN_WIDTH:
+        doodle_dict ["x"] = -DOODLE_WIDTH #on le teleporte a gauche
 
     return
 
