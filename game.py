@@ -37,6 +37,24 @@ def move_doodle():
 
     # TODO : Gérez les déplacements gauche/droite et mettez à jour
     # simultanément la direction et l'image du Doodle.
+    """- la position `x` doit être modifiée de `DOODLE_SPEED` pixels ;
+- lorsque le Doodle se déplace vers la gauche :
+  - `direction` doit devenir `"left"` ;
+  - `image` doit devenir `doodle_left_img` ;
+- lorsqu'il se déplace vers la droite :
+  - `direction` doit devenir `"right"` ;
+  - `image` doit devenir `doodle_right_img`."""
+    if keys == "K_LEFT" :
+        doodle_dict.update({
+            "direction": "left",
+            "image": doodle_left_img
+        })
+    if keys == "K-Right" :
+        doodle_dict.update({
+            "direction": "right",
+            "image" : doodle_right_img
+        })
+
 
 
 
