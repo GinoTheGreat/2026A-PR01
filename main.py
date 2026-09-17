@@ -10,7 +10,7 @@ from game import (
     check_game_over, restart_game
 )
 
-# Initialisation de Pygame et de l'horloges
+# Initialisation de Pygame et de l'horloge
 pygame.init()
 clock = pygame.time.Clock()
 running = True
