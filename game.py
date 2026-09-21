@@ -58,9 +58,9 @@ def move_doodle():
     # SCREEN_WIDTH = 576
     # SCREEN_HEIGHT = 800  --> info sur la taille de la fenêtre
     
-    if doodle_dict["x"] < -DOODLE_WIDTH :
+    if doodle_dict["x"]+ DOODLE_WIDTH < 0 :   # doodle_dict["x"] < -DOODLE_WIDTH: J'ai remplacé ca juste pour une meilleure lecture perso du code, à discuter avec Clo
         doodle_dict["x"] = SCREEN_WIDTH  #on le teleporte a droite
-    elif doodle_dict["x"] > SCREEN_WIDTH:
+    elif doodle_dict["x"] > SCREEN_WIDTH:  #on compare la largeur de l'éecran avec la position du bord gauche du doodle si somme >0 on teleporte on affivhant la largeur du doodle à partir de x=0
         doodle_dict ["x"] = -DOODLE_WIDTH #on le teleporte a gauche
 
     return
