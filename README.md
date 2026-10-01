@@ -300,6 +300,7 @@ Votre fonction doit donc vérifier simultanément que :
 - le rectangle du Doodle chevauche celui de la plateforme ;
 - le Doodle arrive sur le **dessus** de cette plateforme, et non par-dessous ou par le côté.
 
+
 La fonction `rects_collide(r1, r2)` fournie à la fin de `game.py` permet de tester le chevauchement de deux rectangles représentés par :
 
 ```python
