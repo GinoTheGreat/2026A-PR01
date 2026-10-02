@@ -156,6 +156,39 @@ def scroll_camera():
     # Le score doit représenter la distance verticale ainsi parcourue et le
     # meilleur score doit être mis à jour. Les plateformes sorties sous
     # l'écran doivent être retirées, puis de nouvelles plateformes générées.
+    """Lorsque le Doodle monte au-dessus de `CAMERA_SCROLL_THRESHOLD`, il doit rester visuellement à cette hauteur. 
+    Pour donner l'impression qu'il continue son ascension, c'est alors l'ensemble des plateformes qui se déplace vers le bas.
+    Vous devez déterminer la distance de défilement nécessaire et l'utiliser pour :
+
+    - repositionner le Doodle au seuil de caméra ;
+    - déplacer toutes les plateformes de la même distance ;
+    - augmenter le score selon la distance verticale parcourue ;
+    - mettre à jour `high_score` lorsque nécessaire ;
+    - retirer les plateformes ayant entièrement quitté la zone utile sous l'écran ;
+    - demander la génération de nouvelles plateformes au-dessus de l'écran."""
+
+    if doodle_dict["y"] < CAMERA_SCROLL_THRESHOLD :
+        scroll_camera = CAMERA_SCROLL_THRESHOLD - doodle_dict["y"]
+        doodle_dict["y"] = CAMERA_SCROLL_THRESHOLD
+
+        # on déplace les plaformes de la meme distance
+        for platform in PLATFORMS :
+            platform["y"] += scroll_camera
+
+        #le score
+        doodle_dict["score"] += int(scroll_camera)
+        if doodle_dict["score"] > doodle_dict["high_score"] :
+            doodle_dict["high_score"] = doodle_dict["score"]
+
+        #retirer les plateformes ayant entièrement quitté la zone
+        """plateformes_gardees = []
+        for platform in PLATFORMS:
+            if platform["y"] < SCREEN_HEIGHT:
+                plateformes_gardees.append(platform)"""
+
+        PLATFORMS[:] = [platform for platform in PLATFORMS if platform["y"] < SCREEN_HEIGHT]
+
+        generate_new_platforms()
 
     return
 
@@ -174,8 +207,24 @@ def generate_new_platforms():
     # Vous devrez partir de la plateforme actuellement la plus haute et
     # continuer à ajouter des plateformes tant que nécessaire. Utilisez
     # choose_platform_type(...) avec les probabilités indiquées dans le README.
+    
+    #cas où `PLATFORMS` est vide
+    if not PLATFORMS :
+        highest_plat = 0.0
+    else :
+        highest_plat = min(plat["y"] for plat in PLATFORMS) #min car repere pygame inversé
 
-    return
+    while highest_plat > -50 :
+        espacement = random.randint(MIN_PLATFORM_GAP, MAX_PLATFORM_GAP)
+        highest_plat -= espacement
+
+    #position horizontale valide
+        pos_x = random.randint(0, SCREEN_WIDTH - PLATFORM_WIDTH) #-PLATFORM_WIDTH pour que la platforme soit dans l'écran
+        platform_type = choose_platform_type(0.55, 0.20, 0.13)
+
+        new_platform = create_platform(pos_x, highest_plat, platform_type)
+        PLATFORMS.append(new_platform)
+    return 
 
 # ===========================================================
 
